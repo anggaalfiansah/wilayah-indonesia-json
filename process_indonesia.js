@@ -87,7 +87,12 @@ const createDesa = async () => {
                 // check and create folder
                 if (!fs.existsSync("desa")) fs.mkdirSync("desa");
                 // save file
-                fs.writeFileSync(`desa/${z.name}.json`, JSON.stringify(result));
+                // handling if( name includes "/"" character) so we rename and move it manualy
+                if (z.name.includes("/")) {
+                  fs.writeFileSync(`desa/${z.name.replace("/","-")}.json`, JSON.stringify(result));
+                } else {
+                  fs.writeFileSync(`desa/${z.name}.json`, JSON.stringify(result));
+                }
               });
             }
           });
